@@ -6,20 +6,15 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:10:00 by bkaztaou          #+#    #+#             */
-/*   Updated: 2024/01/17 15:19:00 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:02:22 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
-void	c_print(std::string msg, int flag) {
-	if (flag == 0)
-		std::cout << "\033[1;32m" << msg << "\033[0m" << std::endl;
-	else if (flag == 1)
-		std::cout << "\033[1;31m" << msg << "\033[0m" << std::endl;
-	else
-		std::cout << msg << std::endl;
-}
+// ------------------------------------ //
+// ------------- Helpers -------------- //
+// ------------------------------------ //
 
 std::string trim(std::string str) {
 	size_t first = str.find_first_not_of(' ');
@@ -35,15 +30,19 @@ std::string	truncat(std::string str) {
 	return (str);
 }
 
+// ------------------------------------ //
+// ------------- Setters -------------- //
+// ------------------------------------ //
+
 int	Contact::setFirstName(std::string firstName) {
 	firstName = trim(firstName);
 	if (firstName.empty()) {
-		c_print("First name can't be empty", 1);
+		std::cout << "\033[1;31m" << "First name can't be empty" << "\033[0m" << std::endl;
 		return (1);
 	} else {
 		for (size_t i = 0; i < firstName.length(); i++) {
 			if (!isalpha(firstName[i])) {
-				c_print("First name must be alphabetic", 1);
+				std::cout << "\033[1;31m" << "First name must be alphabetic" << "\033[0m" << std::endl;
 				return (1);
 			}
 		}
@@ -55,12 +54,12 @@ int	Contact::setFirstName(std::string firstName) {
 int	Contact::setLastName(std::string lastName) {
 	lastName = trim(lastName);
 	if (lastName.empty()) {
-		c_print("Last name can't be empty", 1);
+		std::cout << "\033[1;31m" << "Last name can't be empty" << "\033[0m" << std::endl;
 		return (1);
 	} else {	
 		for (size_t i = 0; i < lastName.length(); i++) {
 			if (!isalpha(lastName[i])) {
-				c_print("Last name must be alphabetic", 1);
+				std::cout << "\033[1;31m" << "Last name must be alphabetic" << "\033[0m" << std::endl;
 				return (1);
 			}
 		}
@@ -72,12 +71,12 @@ int	Contact::setLastName(std::string lastName) {
 int	Contact::setNickname(std::string nickname) {
 	nickname = trim(nickname);
 	if (nickname.empty()) {
-		c_print("Nickname can't be empty", 1);
+		std::cout << "\033[1;31m" << "Nickname can't be empty" << "\033[0m" << std::endl;
 		return (1);
 	} else {
 		for (size_t i = 0; i < nickname.length(); i++) {
 			if (!isalnum(nickname[i])) {
-				c_print("Nickname must be alphanumeric", 1);
+				std::cout << "\033[1;31m" << "Nickname must be alphanumeric" << "\033[0m" << std::endl;
 				return (1);
 			}
 		}
@@ -89,12 +88,12 @@ int	Contact::setNickname(std::string nickname) {
 int	Contact::setPhoneNumber(std::string phoneNumber) {
 	phoneNumber = trim(phoneNumber);
 	if (phoneNumber.empty()) {
-		c_print("Phone number can't be empty", 1);
+		std::cout << "\033[1;31m" << "Phone number can't be empty" << "\033[0m" << std::endl;
 		return (1);
 	} else {
 		for (size_t i = 0; i < phoneNumber.length(); i++) {
 			if (!isdigit(phoneNumber[i])) {
-				c_print("Phone number must be numeric", 1);
+				std::cout << "\033[1;31m" << "Phone number must be numeric" << "\033[0m" << std::endl;
 				return (1);
 			}
 		}
@@ -106,12 +105,12 @@ int	Contact::setPhoneNumber(std::string phoneNumber) {
 int	Contact::setDarkestSecret(std::string darkestSecret) {
 	darkestSecret = trim(darkestSecret);
 	if (darkestSecret.empty()) {
-		c_print("Darkest secret can't be empty", 1);
+		std::cout << "\033[1;31m" << "Darkest secret can't be empty" << "\033[0m" << std::endl;
 		return (1);
 	} else {
 		for (size_t i = 0; i < darkestSecret.length(); i++) {
 			if (!isalnum(darkestSecret[i])) {
-				c_print("Darkest secret must be alphanumeric", 1);
+				std::cout << "\033[1;31m" << "Darkest secret must be alphanumeric" << "\033[0m" << std::endl;
 				return (1);
 			}
 		}
@@ -120,17 +119,45 @@ int	Contact::setDarkestSecret(std::string darkestSecret) {
 	return (0);
 }
 
+// ------------------------------------ //
+// ------------- Getters -------------- //
+// ------------------------------------ //
+
+std::string	Contact::getFirstName(void) {
+	return (this->firstName);
+}
+
+std::string	Contact::getLastName(void) {
+	return (this->lastName);
+}
+
+std::string	Contact::getNickname(void) {
+	return (this->nickname);
+}
+
+std::string	Contact::getPhoneNumber(void) {
+	return (this->phoneNumber);
+}
+
+std::string	Contact::getDarkestSecret(void) {
+	return (this->darkestSecret);
+}
+
+// ------------------------------------ //
+// ------------- Methodes ------------- //
+// ------------------------------------ //
+
 void	Contact::printContact(int index) {
 	std::cout << "|" << std::setw(10) << index << "|";
-	std::cout << std::setw(10) << truncat(this->firstName) << "|";
-	std::cout << std::setw(10) << truncat(this->lastName) << "|";
-	std::cout << std::setw(10) << truncat(this->nickname) << "|" << std::endl;
+	std::cout << std::setw(10) << truncat(Contact::getFirstName()) << "|";
+	std::cout << std::setw(10) << truncat(Contact::getLastName()) << "|";
+	std::cout << std::setw(10) << truncat(Contact::getNickname()) << "|" << std::endl;
 }
 
 void	Contact::printContactInfo(void) {
-	std::cout << "First name: " << this->firstName << std::endl;
-	std::cout << "Last name: " << this->lastName << std::endl;
-	std::cout << "Nickname: " << this->nickname << std::endl;
-	std::cout << "Phone number: " << this->phoneNumber << std::endl;
-	std::cout << "Darkest secret: " << this->darkestSecret << std::endl;
+	std::cout << "First name: " << Contact::getFirstName() << std::endl;
+	std::cout << "Last name: " << Contact::getLastName() << std::endl;
+	std::cout << "Nickname: " << Contact::getNickname() << std::endl;
+	std::cout << "Phone number: " << Contact::getPhoneNumber() << std::endl;
+	std::cout << "Darkest secret: " << Contact::getDarkestSecret() << std::endl;
 }

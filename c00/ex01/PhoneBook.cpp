@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:55:35 by bkaztaou          #+#    #+#             */
-/*   Updated: 2024/01/17 23:09:51 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:02:44 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ void	printHeader(void) {
    std::cout << "|----------|----------|----------|----------|" << std::endl;
 }
 
-void	pb_print(std::string msg, int flag) {
+void	printFooter(void) {
+	std::cout << "|-------------------------------------------|" << std::endl;
+}
+
+void	printMsg(std::string msg, int flag) {
 	if (flag == 0)
 		std::cout << "\033[1;32m" << msg << "\033[0m" << std::endl;
 	else if (flag == 1)
 		std::cout << "\033[1;31m" << msg << "\033[0m" << std::endl;
 	else
 		std::cout << msg << std::endl;
-}
-
-void	printFooter(void) {
-	std::cout << "|-------------------------------------------|" << std::endl;
 }
 
 // ------------------------------------ //
@@ -67,7 +67,7 @@ void	PhoneBook::add() {
 	getContactInfo("Enter your phone number: ", &Contact::setPhoneNumber);
 	getContactInfo("Enter your darkest secret: ", &Contact::setDarkestSecret);
 	this->index++;
-	pb_print("Contact added successfully ✔️", 0);
+	printMsg("Contact added successfully ✔️", 0);
 }
 
 void	PhoneBook::printContactsList() {
@@ -86,10 +86,10 @@ void	PhoneBook::printContactInfo(int index) {
 	std::getline(std::cin, input);
 
 	if (input.length() > 1 || input[0] < '0' || input[0] > '7') {
-		pb_print("Invalid index ❌", 1);
+		printMsg("Invalid index ❌", 1);
 		return ;
 	} else if (input[0] - '0' >= index) {
-		pb_print("Contact not found ❌", 1);
+		printMsg("Contact not found ❌", 1);
 		return ;
 	} else {
 		this->contacts[input[0] - '0'].printContactInfo();
@@ -100,7 +100,7 @@ void	PhoneBook::search() {
 	std::string	input;
 
 	if (this->index == 0) {
-		pb_print("No contacts to show ℹ️", 1);
+		printMsg("No contacts to show ℹ️", 1);
 		return ;
 	}
 	printContactsList();
